@@ -1,0 +1,77 @@
+.BigLogo {
+  width: 8vw;
+  height: auto;
+  margin-left: 0.5vw;
+}
+
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f4f6;
+  color: white;
+}
+
+.NavLinks {
+  margin: 0 1vw;
+}
+
+.LoginBtn {
+  background-color: transparent;
+  color: #f5eeec;
+  background-color: #0086e5;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: "Space Grotesk";
+  font-size: clamp(0.5rem, 1.5vw, 0.9rem);
+  padding: 1vh 1.5vw;
+  text-decoration: none;
+}
+
+.LoginBtn:hover {
+  background-color: transparent;
+  color: #f5eeec;
+  background-color: #0368db;
+}
+
+.LogoutBtn {
+  background-color: transparent;
+  color: #db0303;
+  border: none;
+  font-weight: bold;
+  font-family: "Space Grotesk";
+  font-size: clamp(0.5rem, 1.5vw, 0.9rem);
+  padding-top: 0.4vh;
+}
+
+.LogoutBtn:hover {
+  background-color: transparent;
+  color: #a70303;
+}
+
+.WatchList {
+  text-decoration: none;
+  color: #313131;
+  padding-top: 0.5vh;
+  font-family: "Space Grotesk";
+  font-size: clamp(0.5rem, 1.5vw, 0.9rem);
+}
+
+.UserName {
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: transparent;
+  color: #313131;
+  font-weight: bold;
+  font-size: clamp(0.5rem, 1.5vw, 0.9rem);
+  padding-top: 0.5vh;
+  font-family: "Space Grotesk";
+  text-decoration: none;
+}
+
+.Container {
+  display: flex;
+  gap: 1rem;
+}

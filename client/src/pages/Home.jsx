@@ -1,14 +1,13 @@
-// client/src/pages/Home.jsx
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Sparkline from "../components/Sparkline";
+import styles from "../pages/Home.module.css";
 
 const Home = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 1. Get user from memory to check if they are logged in
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -27,7 +26,6 @@ const Home = () => {
     fetchData();
   }, []);
 
-  // 2. NEW FUNCTION: The logic to save the coin
   const handleAdd = async (coinId) => {
     if (!user) {
       alert("Please login to use the watchlist!");
@@ -37,14 +35,14 @@ const Home = () => {
     try {
       const config = {
         headers: {
-          Authorization: `Bearer ${user.token}`, // Pass the ID Card
+          Authorization: `Bearer ${user.token}`,
         },
       };
 
       await axios.put(
         "http://localhost:5000/api/users/watchlist",
-        { coinId }, // The data
-        config // The headers
+        { coinId },
+        config
       );
 
       alert("Coin added to your watchlist!");
@@ -68,7 +66,7 @@ const Home = () => {
             <th>Price</th>
             <th>24h Change</th>
             <th>Last 7 Days</th>
-            <th>Action</th> {/* <--- New Column Header */}
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -96,7 +94,6 @@ const Home = () => {
                 />
               </td>
 
-              {/* 3. NEW COLUMN: The Button */}
               <td>
                 <button
                   onClick={() => handleAdd(coin.id)}

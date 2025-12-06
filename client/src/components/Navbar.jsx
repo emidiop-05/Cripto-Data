@@ -1,4 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
+import BigLogo from "../assets/Large-Logo.png";
+import styles from "../components/Navbar.module.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -11,33 +13,25 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <Link to="/" className="logo">
-        CryptoTracker
+    <nav className={styles.Navbar}>
+      <Link to="/">
+        <img className={styles.BigLogo} src={BigLogo} alt="logo Cripto Data" />
       </Link>
 
-      <div className="nav-links">
+      <div className={styles.NavLinks}>
         {user ? (
-          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-            <Link
-              to="/watchlist"
-              style={{
-                color: "#16c784",
-                textDecoration: "none",
-                fontWeight: "bold",
-              }}
-            >
-              My Watchlist
+          <div className={styles.Container}>
+            <span className={styles.UserName}>Hello, {user.name}</span>
+            <Link to="/watchlist" className={styles.WatchList}>
+              Watchlist
             </Link>
 
-            <span>Hello, {user.name}</span>
-
-            <button onClick={handleLogout} className="logout-btn">
+            <button onClick={handleLogout} className={styles.LogoutBtn}>
               Logout
             </button>
           </div>
         ) : (
-          <Link to="/login" className="nav-link">
+          <Link to="/login" className={styles.LoginBtn}>
             Login
           </Link>
         )}
