@@ -4,7 +4,7 @@ import Sparkline from "../components/Sparkline";
 import styles from "../pages/Home.module.css";
 import { NavLink } from "react-router-dom";
 
-const Home = () => {
+const Trending = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -58,7 +58,7 @@ const Home = () => {
 
   return (
     <div className={styles.MarketContainer}>
-      <h1 className={styles.MarketTitle}>Crypto Market Overview</h1>
+      <h1 className={styles.MarketTitle}>Trending Coins last 24H</h1>
       <nav className={styles.SubCategoriesContainer}>
         <NavLink
           to="/"
@@ -100,51 +100,55 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {coins.map((coin) => (
-              <tr key={coin.id}>
-                <td>
-                  <div className={styles.MarketTbRow}>
-                    <img
-                      src={coin.image}
-                      alt={coin.name}
-                      className={styles.CoinImg}
-                    />
-                    {coin.name}
-                  </div>
-                </td>
+            {coins
 
-                <td>${coin.current_price.toLocaleString()}</td>
-                <td
-                  style={{
-                    color:
-                      coin.price_change_percentage_24h > 0 ? "green" : "red",
-                  }}
-                >
-                  {coin.price_change_percentage_24h.toFixed(2)}%
-                </td>
-                <td>
-                  <Sparkline
-                    data={coin.sparkline_in_7d.price}
-                    isPositive={coin.price_change_percentage_24h > 0}
-                  />
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleAdd(coin.id)}
+              .filter((coin) => coin.price_change_percentage_24h > 0)
+              .map((coin) => (
+                <tr key={coin.id}>
+                  <td>
+                    <div className={styles.MarketTbRow}>
+                      <img
+                        src={coin.image}
+                        alt={coin.name}
+                        className={styles.CoinImg}
+                      />
+                      {coin.name}
+                    </div>
+                  </td>
+
+                  <td>${coin.current_price.toLocaleString()}</td>
+                  <td
                     style={{
-                      padding: "5px 10px",
-                      cursor: "pointer",
-                      backgroundColor: "#333",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "5px",
+                      color: "green",
                     }}
                   >
-                    + Add
-                  </button>
-                </td>
-              </tr>
-            ))}
+                    {coin.price_change_percentage_24h.toFixed(2)}%
+                  </td>
+
+                  <td>
+                    <Sparkline
+                      data={coin.sparkline_in_7d.price}
+                      isPositive={true}
+                    />
+                  </td>
+
+                  <td>
+                    <button
+                      onClick={() => handleAdd(coin.id)}
+                      style={{
+                        padding: "5px 10px",
+                        cursor: "pointer",
+                        backgroundColor: "#333",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      + Add
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -152,4 +156,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Trending;

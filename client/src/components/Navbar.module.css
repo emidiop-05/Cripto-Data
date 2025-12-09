@@ -8,8 +8,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f0f4f6;
+  background-color: #f3f4f6;
   color: white;
+  border-bottom: #cfcfcf solid 2px;
 }
 
 .NavLinks {

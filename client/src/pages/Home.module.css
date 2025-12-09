@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.MarketContainer {
+  padding: 20px;
+  font-family: "Space Grotesk";
+  font-weight: bold;
+}
+
+.SubContainer {
+  border-top: 2px solid #cfcfcf;
+  margin-top: 10px;
+}
+
+.MarketTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.MarketTable {
+  min-width: 60vw;
+}
+
+.MarketTbRow {
+  width: clamp(4rem, 8vw, 6rem);
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.CoinImg {
+  width: 1.5vw;
+  height: auto;
+}
+.MarketSubTitles th {
+  text-align: left;
+  padding: 10px 0;
+}
+
+.SubCategoriesContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.SubCategories {
+  text-decoration: none;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-family: "inter";
+  color: rgb(120, 120, 120);
+  transition: 0.3s;
+}
+
+.SubCategories:hover {
+  color: rgb(46, 46, 46);
+}
+
+.ActiveCategory {
+  text-decoration: none;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-family: "inter";
+  color: rgb(46, 46, 46);
+  border-bottom: 2px solid black;
+}
