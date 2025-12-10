@@ -4,7 +4,6 @@ const cors = require("cors");
 const axios = require("axios");
 const connectDB = require("./config/db");
 
-const cryptoRoutes = require("./routes/cryptoRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 const app = express();
@@ -16,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
+
 app.get("/api/crypto", async (req, res) => {
   try {
     const response = await axios.get(
@@ -23,9 +23,9 @@ app.get("/api/crypto", async (req, res) => {
       {
         headers: { "x-cg-demo-api-key": process.env.COINGECKO_API_KEY },
         params: {
-          vs_currency: "usd",
+          vs_currency: "eur",
           order: "market_cap_desc",
-          per_page: 10,
+          per_page: 100,
           page: 1,
           sparkline: true,
         },
