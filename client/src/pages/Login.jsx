@@ -1,7 +1,6 @@
-// client/src/pages/Login.jsx
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom"; // Added 'Link' for the register button
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +22,6 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      // 1. Send data to YOUR backend
       const response = await axios.post(
         "http://localhost:5000/api/users/login",
         {
@@ -32,16 +30,13 @@ const Login = () => {
         }
       );
 
-      // 2. If success, save the TOKEN to the browser's memory
       if (response.data) {
         localStorage.setItem("user", JSON.stringify(response.data));
-        // 3. Redirect to the Dashboard (Home) and refresh to update Navbar
         navigate("/");
         window.location.reload();
       }
     } catch (error) {
       console.error(error);
-      // Show the error coming from the backend (if available) or a generic one
       setError(
         error.response?.data?.message ||
           "Invalid credentials. Please try again."
@@ -51,9 +46,17 @@ const Login = () => {
 
   return (
     <div
-      style={{ maxWidth: "400px", margin: "50px auto", textAlign: "center" }}
+      style={{
+        maxWidth: "400px",
+        margin: "50px auto",
+        padding: "30px",
+        textAlign: "center",
+        backgroundColor: "#bbddefff",
+        borderRadius: "8px",
+        boxShadow: "5px 5px 15px grey",
+      }}
     >
-      <h1>Login</h1>
+      <h1 style={{ color: "#3f3f3f", fontFamily: "Inter" }}>Login</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <form
@@ -83,19 +86,19 @@ const Login = () => {
           style={{
             padding: "10px",
             cursor: "pointer",
-            backgroundColor: "black",
+            backgroundColor: "#2281fcff",
             color: "white",
             border: "none",
+            borderRadius: "8px",
           }}
         >
           Login
         </button>
       </form>
 
-      {/* NEW LINK TO REGISTER PAGE */}
-      <p style={{ marginTop: "20px" }}>
+      <p style={{ marginTop: "20px", fontFamily: "Inter" }}>
         Don't have an account?{" "}
-        <Link to="/register" style={{ color: "#16c784" }}>
+        <Link to="/register" style={{ color: "#16b5c7ff" }}>
           Register
         </Link>
       </p>

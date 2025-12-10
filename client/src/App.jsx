@@ -13,18 +13,24 @@ import "./App.css";
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/trending" element={<Trending />} />
-        <Route path="/down" element={<Down />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/watchlist" element={<Watchlist />} />
-        </Route>
-      </Routes>
-      <Footer />
+      <div className="app-container">
+        <Navbar />
+
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/trending" element={<Trending />} />
+            <Route path="/down" element={<Down />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/watchlist" element={<Watchlist />} />
+            </Route>
+          </Routes>
+        </div>
+
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }

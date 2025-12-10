@@ -1,4 +1,3 @@
-// client/src/pages/Register.jsx
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
@@ -25,38 +24,42 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    // 1. Basic validation: Check if passwords match
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
     try {
-      // 2. Register the user
       const response = await axios.post("http://localhost:5000/api/users", {
         name,
         email,
         password,
       });
 
-      // 3. If successful, save user and redirect to dashboard immediately
       if (response.data) {
         localStorage.setItem("user", JSON.stringify(response.data));
         navigate("/");
-        window.location.reload(); // Refresh to update Navbar
+        window.location.reload();
       }
     } catch (error) {
       console.error(error);
-      // Show the error message from the backend (e.g., "User already exists")
       setError(error.response?.data?.message || "Registration failed");
     }
   };
 
   return (
     <div
-      style={{ maxWidth: "400px", margin: "50px auto", textAlign: "center" }}
+      style={{
+        maxWidth: "400px",
+        margin: "50px auto",
+        padding: "30px",
+        textAlign: "center",
+        backgroundColor: "#bbddefff",
+        borderRadius: "8px",
+        boxShadow: "5px 5px 15px grey",
+      }}
     >
-      <h1>Create Account</h1>
+      <h1 style={{ color: "#3f3f3f", fontFamily: "Inter" }}>Create Account</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <form
@@ -105,18 +108,20 @@ const Register = () => {
           style={{
             padding: "10px",
             cursor: "pointer",
-            backgroundColor: "black",
+            backgroundColor: "#2281fcff",
             color: "white",
             border: "none",
+            borderRadius: "8px",
+            fontFamily: "inter",
           }}
         >
           Sign Up
         </button>
       </form>
 
-      <p style={{ marginTop: "20px" }}>
+      <p style={{ marginTop: "20px", fontFamily: "inter" }}>
         Already have an account?{" "}
-        <Link to="/login" style={{ color: "#16c784" }}>
+        <Link to="/login" style={{ color: "#16bbc7ff" }}>
           Login
         </Link>
       </p>

@@ -3,3 +3,14 @@ body {
   padding: 0;
   background-color: #f3f4f6;
 }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+}

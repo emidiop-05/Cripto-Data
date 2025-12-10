@@ -95,7 +95,12 @@ const Trending = () => {
               <th>Coin</th>
               <th>Price</th>
               <th>24h Change</th>
+              <th>High 24h</th>
+              <th>Low 24h</th>
               <th>Last 7 Days</th>
+              <th>Market Cap</th>
+              <th>All Time High</th>
+              <th>All Time Down</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -116,7 +121,7 @@ const Trending = () => {
                     </div>
                   </td>
 
-                  <td>${coin.current_price.toLocaleString()}</td>
+                  <td>€{coin.current_price.toLocaleString()}</td>
                   <td
                     style={{
                       color: "green",
@@ -125,12 +130,25 @@ const Trending = () => {
                     {coin.price_change_percentage_24h.toFixed(2)}%
                   </td>
 
+                  <td style={{ color: "green" }}>
+                    €{coin.high_24h.toLocaleString()}
+                  </td>
+                  <td style={{ color: "red" }}>
+                    €{coin.low_24h.toLocaleString()}
+                  </td>
+
                   <td>
                     <Sparkline
                       data={coin.sparkline_in_7d.price}
                       isPositive={true}
                     />
                   </td>
+
+                  <td>€{coin.market_cap.toLocaleString()}</td>
+
+                  <td>€{coin.ath.toLocaleString()}</td>
+
+                  <td>€{coin.atl.toLocaleString()}</td>
 
                   <td>
                     <button
