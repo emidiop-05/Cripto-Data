@@ -17,6 +17,8 @@ app.use(express.json());
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
 app.get("/api/crypto", async (req, res) => {
+  const page = req.query.page || 1;
+
   try {
     const response = await axios.get(
       "https://api.coingecko.com/api/v3/coins/markets",
@@ -26,7 +28,7 @@ app.get("/api/crypto", async (req, res) => {
           vs_currency: "eur",
           order: "market_cap_desc",
           per_page: 100,
-          page: 1,
+          page: page,
           sparkline: true,
         },
       }
