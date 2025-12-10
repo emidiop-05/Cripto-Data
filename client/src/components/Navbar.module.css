@@ -1,7 +1,6 @@
-.BigLogo {
-  width: 8vw;
-  height: auto;
-  margin-left: 0.5vw;
+body {
+  margin: 0;
+  padding: 0;
 }
 
 .Navbar {
@@ -11,30 +10,45 @@
   background-color: #f3f4f6;
   color: white;
   border-bottom: #cfcfcf solid 2px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  min-height: 70px;
+}
+
+.BigLogo {
+  width: clamp(120px, 15vw, 180px);
+  height: auto;
+  display: block;
 }
 
 .NavLinks {
-  margin: 0 1vw;
+  margin: 0;
+}
+
+.Container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .LoginBtn {
-  background-color: transparent;
-  color: #f5eeec;
   background-color: #0086e5;
+  color: #f5eeec;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  font-family: "Space Grotesk";
-  font-size: clamp(0.5rem, 1.5vw, 0.9rem);
-  padding: 1vh 1.5vw;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  padding: 10px 20px;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .LoginBtn:hover {
-  background-color: transparent;
-  color: #f5eeec;
   background-color: #0368db;
+  color: #f5eeec;
 }
 
 .LogoutBtn {
@@ -42,37 +56,29 @@
   color: #db0303;
   border: none;
   font-weight: bold;
-  font-family: "Space Grotesk";
-  font-size: clamp(0.5rem, 1.5vw, 0.9rem);
-  padding-top: 0.4vh;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  cursor: pointer;
+  padding: 5px;
 }
 
 .LogoutBtn:hover {
-  background-color: transparent;
   color: #a70303;
 }
 
 .WatchList {
   text-decoration: none;
   color: #313131;
-  padding-top: 0.5vh;
-  font-family: "Space Grotesk";
-  font-size: clamp(0.5rem, 1.5vw, 0.9rem);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  white-space: nowrap;
 }
 
 .UserName {
-  font-weight: bold;
-  font-size: 1rem;
-  background-color: transparent;
   color: #313131;
   font-weight: bold;
-  font-size: clamp(0.5rem, 1.5vw, 0.9rem);
-  padding-top: 0.5vh;
-  font-family: "Space Grotesk";
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  font-family: "Space Grotesk", sans-serif;
   text-decoration: none;
-}
-
-.Container {
-  display: flex;
-  gap: 1rem;
+  white-space: nowrap;
 }

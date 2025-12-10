@@ -4,17 +4,29 @@ import Sparkline from "../components/Sparkline";
 import styles from "../pages/Home.module.css";
 import { NavLink } from "react-router-dom";
 
+const formatCurrency = (value) => {
+  if (value === null || value === undefined) {
+    return "-";
+  }
+  return `€${value.toLocaleString()}`;
+};
+
 const Trending = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [page, setPage] = useState(1);
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get("http://localhost:5000/api/crypto");
+        const response = await axios.get(
+          `http://localhost:5000/api/crypto?page=${page}`
+        );
         setCoins(response.data);
         setLoading(false);
       } catch (err) {
@@ -25,7 +37,7 @@ const Trending = () => {
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
   const handleAdd = async (coinId) => {
     if (!user) {
@@ -53,7 +65,6 @@ const Trending = () => {
     }
   };
 
-  if (loading) return <h1>Loading Market Data...</h1>;
   if (error) return <h1 style={{ color: "red" }}>{error}</h1>;
 
   return (
@@ -88,87 +99,115 @@ const Trending = () => {
           Down
         </NavLink>
       </nav>
+
       <div className={styles.SubContainer}>
-        <table className={styles.MarketTable}>
-          <thead>
-            <tr className={styles.MarketSubTitles}>
-              <th>Coin</th>
-              <th>Price</th>
-              <th>24h Change</th>
-              <th>High 24h</th>
-              <th>Low 24h</th>
-              <th>Last 7 Days</th>
-              <th>Market Cap</th>
-              <th>All Time High</th>
-              <th>All Time Down</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {coins
+        {loading ? (
+          <h2 style={{ textAlign: "center", color: "white", padding: "20px" }}>
+            Loading Page {page}...
+          </h2>
+        ) : (
+          <table className={styles.MarketTable}>
+            <thead>
+              <tr className={styles.MarketSubTitles}>
+                <th>Coin</th>
+                <th>Price</th>
+                <th>24h Change</th>
+                <th>High 24h</th>
+                <th>Low 24h</th>
+                <th>Last 7 Days</th>
+                <th>Market Cap</th>
+                <th>All Time High</th>
+                <th>All Time Down</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody className={styles.TableBody}>
+              {coins
+                .filter((coin) => (coin.price_change_percentage_24h || 0) > 0)
+                .map((coin) => (
+                  <tr key={coin.id}>
+                    <td>
+                      <div className={styles.MarketTbRow}>
+                        <img
+                          src={coin.image}
+                          alt={coin.name}
+                          className={styles.CoinImg}
+                        />
+                        {coin.name}
+                      </div>
+                    </td>
 
-              .filter((coin) => coin.price_change_percentage_24h > 0)
-              .map((coin) => (
-                <tr key={coin.id}>
-                  <td>
-                    <div className={styles.MarketTbRow}>
-                      <img
-                        src={coin.image}
-                        alt={coin.name}
-                        className={styles.CoinImg}
+                    <td>{formatCurrency(coin.current_price)}</td>
+
+                    <td style={{ color: "green" }}>
+                      {coin.price_change_percentage_24h?.toFixed(2) ?? "-"}%
+                    </td>
+
+                    <td style={{ color: "green" }}>
+                      {formatCurrency(coin.high_24h)}
+                    </td>
+                    <td style={{ color: "red" }}>
+                      {formatCurrency(coin.low_24h)}
+                    </td>
+
+                    <td>
+                      <Sparkline
+                        data={coin.sparkline_in_7d?.price || []}
+                        isPositive={true}
                       />
-                      {coin.name}
-                    </div>
-                  </td>
+                    </td>
 
-                  <td>€{coin.current_price.toLocaleString()}</td>
-                  <td
-                    style={{
-                      color: "green",
-                    }}
-                  >
-                    {coin.price_change_percentage_24h.toFixed(2)}%
-                  </td>
+                    <td>{formatCurrency(coin.market_cap)}</td>
+                    <td>{formatCurrency(coin.ath)}</td>
+                    <td>{formatCurrency(coin.atl)}</td>
 
-                  <td style={{ color: "green" }}>
-                    €{coin.high_24h.toLocaleString()}
-                  </td>
-                  <td style={{ color: "red" }}>
-                    €{coin.low_24h.toLocaleString()}
-                  </td>
+                    <td>
+                      <button
+                        onClick={() => handleAdd(coin.id)}
+                        style={{
+                          padding: "5px 10px",
+                          cursor: "pointer",
+                          backgroundColor: "#333",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        + Add
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
+      </div>
 
-                  <td>
-                    <Sparkline
-                      data={coin.sparkline_in_7d.price}
-                      isPositive={true}
-                    />
-                  </td>
-
-                  <td>€{coin.market_cap.toLocaleString()}</td>
-
-                  <td>€{coin.ath.toLocaleString()}</td>
-
-                  <td>€{coin.atl.toLocaleString()}</td>
-
-                  <td>
-                    <button
-                      onClick={() => handleAdd(coin.id)}
-                      style={{
-                        padding: "5px 10px",
-                        cursor: "pointer",
-                        backgroundColor: "#333",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      + Add
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+      <div className={styles.PageBtnContainer}>
+        <button
+          className={styles.PreviousBtn}
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          disabled={page === 1}
+        >
+          Previous
+        </button>
+        <span
+          style={{
+            alignSelf: "center",
+            color: "#3f3f3f",
+            fontWeight: "bold",
+            fontFamily: "inter",
+          }}
+        >
+          Page {page}
+        </span>
+        <button
+          className={styles.NextBtn}
+          onClick={() => setPage((prev) => prev + 1)}
+          style={{ padding: "10px 20px", cursor: "pointer" }}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
