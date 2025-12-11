@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api/axios";
 import Sparkline from "../components/Sparkline";
 import styles from "../pages/Home.module.css";
 import { NavLink } from "react-router-dom";
@@ -27,9 +27,7 @@ const Trending = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/crypto?page=${page}`
-        );
+        const response = await api.get(`/api/crypto?page=${page}`);
         setCoins(response.data);
         setLoading(false);
       } catch (err) {
@@ -55,11 +53,7 @@ const Trending = () => {
         },
       };
 
-      await axios.put(
-        "http://localhost:5000/api/users/watchlist",
-        { coinId },
-        config
-      );
+      await api.put("/api/users/watchlist", { coinId }, config);
 
       alert("Coin added to your watchlist!");
     } catch (error) {

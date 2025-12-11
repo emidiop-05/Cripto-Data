@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import api from "../api/axios";
 import Sparkline from "../components/Sparkline";
 import styles from "../pages/Home.module.css";
 import AnimatedPage from "../components/AnimatedPage";
@@ -23,10 +24,7 @@ const Watchlist = () => {
           headers: { Authorization: `Bearer ${user.token}` },
         };
 
-        const userResponse = await axios.get(
-          "http://localhost:5000/api/users/me",
-          config
-        );
+        const userResponse = await api.get("/api/users/me", config);
         const myCoinIds = userResponse.data.watchlist;
 
         if (myCoinIds.length > 0) {
@@ -63,7 +61,7 @@ const Watchlist = () => {
         data: { coinId },
       };
 
-      await axios.delete("http://localhost:5000/api/users/watchlist", config);
+      await api.delete("/api/users/watchlist", config);
 
       setCoins((current) => current.filter((c) => c.id !== coinId));
     } catch (error) {
