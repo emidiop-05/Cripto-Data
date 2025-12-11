@@ -1,12 +1,14 @@
-body {
-  margin: 0;
-  padding: 0;
-}
-
 .MarketContainer {
   padding: 0.5vw;
   font-family: "Space Grotesk";
   font-weight: bold;
+}
+
+.TableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
 }
 
 .SubContainer {
@@ -19,10 +21,14 @@ body {
 }
 
 .MarketTable {
-  min-width: 90vw;
+  width: 100%;
+  min-width: 800px;
   border-collapse: separate;
+  border-spacing: 1.5vw 3vw 1.5vw 3vw;
+}
 
-  border-spacing: 1.5vw 2vw 1.5vw 2vw;
+.MarketTable td {
+  border-bottom: 1px solid rgb(199, 199, 199);
 }
 
 .MarketTbRow {
@@ -33,9 +39,10 @@ body {
 }
 
 .CoinImg {
-  width: 1.5vw;
+  width: clamp(1rem, 2vw, 1.5rem);
   height: auto;
 }
+
 .MarketSubTitles th {
   text-align: left;
   padding: 10px 0;
@@ -65,7 +72,7 @@ body {
   color: rgb(46, 46, 46);
   border-bottom: 2px solid black;
 }
-
+/*bellow btns*/
 .PageBtnContainer {
   display: flex;
   justify-content: center;
@@ -97,4 +104,12 @@ body {
 
 .NextBtn:hover {
   color: grey;
+}
+
+@media (max-width: 1106px) {
+  .MarketTable th,
+  .MarketTable td {
+    font-size: 0.7rem;
+    padding-right: 20px;
+  }
 }
